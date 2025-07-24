@@ -1,17 +1,15 @@
 package com.example.TaskManagerBackend.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.AllArgsConstructor;
-
-import java.time.LocalDateTime;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -19,16 +17,12 @@ import jakarta.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Task {
-
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String title;
-    private String description;
-    private Status status;
-    private LocalDateTime creationDateTime;
-    private Priority priority;
-
-
+    @Column(unique = true)
+    private String username;
+    private String password;
+    private String role;
 }
