@@ -38,6 +38,11 @@ public class UserController {
         return userService.addUser(user);
     }
 
+    @PostMapping("login")
+    public String login(@RequestBody User user){
+        return userService.verify(user);
+    }
+
     @DeleteMapping("user/{username}")
     public void deleteUser(@RequestParam String username){
         userService.removeUser(username);
