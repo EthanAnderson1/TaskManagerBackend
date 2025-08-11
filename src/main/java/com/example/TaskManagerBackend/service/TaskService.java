@@ -16,11 +16,13 @@ public class TaskService {
     private TaskRepository taskRepository;
 
     public Task createTask(Task task){
+        System.out.println("Creating task: " + task.getTitle());
         task.setCreationDateTime(LocalDateTime.now());
         return taskRepository.save(task);
     }
 
     public Task updateTask(int id, Task newTask){
+        System.out.println("Updating task with ID: " + id);
          return taskRepository.findById(id)
       .map(task -> {
         task.setTitle(newTask.getTitle());
@@ -32,10 +34,12 @@ public class TaskService {
     }
 
     public Task getTask(int id) {
+        System.out.println("Fetching task with ID: " + id);
         return taskRepository.findById(id).get();
     }
 
     public List<Task> getAllTasks() {
+        System.out.println("Fetching all tasks");
         return taskRepository.findAll();
     }
 }
