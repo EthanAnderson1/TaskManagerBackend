@@ -1,4 +1,4 @@
-package com.example;
+package com.example.TaskManagerBackend;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

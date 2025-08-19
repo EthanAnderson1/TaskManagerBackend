@@ -26,15 +26,15 @@ public class TaskController {
     }
 
     @GetMapping("task/{id}")
-    public Task getTask(@RequestParam int id) {
+    public Task getTask(@PathVariable("id") int id) {
         return taskService.getTask(id);
     }
 
-    @PostMapping("task")
+    @PostMapping("createtask")
     public Task postTask(@RequestBody Task task) {
         return taskService.createTask(task);
     }
-    @PutMapping("task/{id}")
+    @PutMapping("updatetask/{id}")
     public Task putTask(@PathVariable int id, @RequestBody Task newTask) {
        return taskService.updateTask(id, newTask);
     }
