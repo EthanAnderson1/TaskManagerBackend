@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -28,12 +29,13 @@ public class UserController {
     }
 
     @GetMapping("user")
-    public User getMethodName(@RequestParam String username) {
+    public User getMethodName(@RequestParam("username") String username) {
         return userService.getUser(username);
     }
     
     
-    @PostMapping("user")
+    @PostMapping("createuser")
+    @ResponseStatus(org.springframework.http.HttpStatus.CREATED)
     public User postUser(@RequestBody User user) {
         return userService.addUser(user);
     }
@@ -43,8 +45,10 @@ public class UserController {
         return userService.verify(user);
     }
 
-    @DeleteMapping("user/{username}")
-    public void deleteUser(@RequestParam String username){
+    
+    @DeleteMapping("deleteuser")
+    @ResponseStatus(org.springframework.http.HttpStatus.NO_CONTENT)
+    public void deleteUser(@RequestParam("username") String username){
         userService.removeUser(username);
     }
 }
