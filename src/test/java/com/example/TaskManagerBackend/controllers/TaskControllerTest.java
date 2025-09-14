@@ -13,10 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import org.springframework.web.bind.annotation.PathVariable;
-
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 import com.example.TaskManagerBackend.models.Priority;
 import com.example.TaskManagerBackend.models.Status;
@@ -86,12 +82,30 @@ public class TaskControllerTest {
 
     @Test
     @DisplayName("Test to post a task")
-    public void postTask(@RequestBody Task task) {
-    //    return taskService.createTask(task);
+    public void postTask() throws Exception {
+        // Arrange
+        Task newTask = new Task(1, "test", "test", Status.OPEN, LocalDateTime.now(), Priority.LOW);
+        when(taskService.createTask(newTask)).thenReturn(newTask);
+
+        // Act and Assert
+        mockMvc.perform(post("/createtask")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"title\":\"test\", \"description\":\"test\", \"status\":\"OPEN\", \"priority\":\"LOW\"}"))
+                .andExpect(status().isCreated());
     }
 
     @Test
-    public void updateTask(@PathVariable int id, @RequestBody Task newTask) {
-    //   return taskService.updateTask(id, newTask);
+    @DisplayName("Test to update a task")
+    public void updateTask() throws Exception {
+        // Arrange
+        Task updatedTask = new Task(1, "updated title", "updated description", Status.INPROGRESS, LocalDateTime.now(), Priority.MEDIUM);
+        when(taskService.updateTask(1, updatedTask)).thenReturn(updatedTask);
+
+        // Act and Assert
+        mockMvc.perform(put("/updatetask/{id}", 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"title\":\"updated title\", \"description\":\"updated description\", \"status\":\"INPROGRESS\", \"priority\":\"MEDIUM\"}"))
+                .andExpect(status().isOk());
+                
     }
 }
